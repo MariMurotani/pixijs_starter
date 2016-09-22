@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = %q{Pixijs Starter Kit}
   spec.description   = %q{This is javascript frame work to start pixijs quickly.}
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/MariMurotani/pixijs_starter"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'

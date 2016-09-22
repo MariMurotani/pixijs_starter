@@ -7,3 +7,13 @@
 /pkg/
 /spec/reports/
 /tmp/
+
+
+# Ignore vendors tmp
+/vendor
+/tmp
+
+# not ignoring
+!.gitignore
+!app
+!config
