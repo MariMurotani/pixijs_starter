@@ -13,7 +13,7 @@
 /vendor
 /tmp
 /lib/assets/compiled
-Gemfile
+/Gemfile
 
 # not ignoring
 !.gitignore
