@@ -1,0 +1,12 @@
+Description:
+    This is for adding scene to your app/assets/
+    for 1st time please execute,
+    `bundle exec rails generate pixijs_starter:install`
+    for 2nd time and later
+    `bundle exec rails generate pixijs_starter:add your_scene_name`
+
+Example:
+    rails generate pixijs_starter Thing
+
+    This will create:
+        app/assets/javscripts/pixijs/scenes/
