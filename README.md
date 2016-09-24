@@ -70,8 +70,7 @@ $(document).ready(function(){
 </script>
 ```
 
-#### 6. add routing as following [example]
-(https://github.com/MariMurotani/pixijs_starter_test/blob/master/config/routes.rb)
+#### 6. add routing as following [example](https://github.com/MariMurotani/pixijs_starter_test/blob/master/config/routes.rb)
 
 ```ruby
 Rails.application.routes.draw do
