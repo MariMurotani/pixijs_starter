@@ -12,8 +12,11 @@
 # Ignore vendors tmp
 /vendor
 /tmp
+/lib/assets/compiled
+Gemfile
 
 # not ignoring
 !.gitignore
 !app
 !config
+
