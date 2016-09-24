@@ -32,22 +32,22 @@ After checking out the repo, run `bin/setup` to install dependencies. Then, run 
 To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
 
 ### 1. Start in your app
-1. create assets on your project with generator
+#### 1. create assets on your project with generator
 ```ruby
 bundle exec rails generate pixijs_starter:install
 ```
 
-2. generate controller
+#### 2. generate controller
 ```ruby
-rails generate controller pixijs index loadpoint savepoint`
+rails generate controller pixijs index loadpoint savepoint
 ```
 
-3. make sure that you have precomiple config in `config/application.rb`
+#### 3. make sure that you have precomiple config in `config/application.rb`
 ```ruby
 config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
 ```
 
-4. modify require setting in `pixijs.js` as following  [example](https://github.com/MariMurotani/pixijs_starter_test/blob/master/app/assets/javascripts/pixijs.js).
+#### 4. modify require setting in `pixijs.js` as following  [example](https://github.com/MariMurotani/pixijs_starter_test/blob/master/app/assets/javascripts/pixijs.js).
 
 ```ruby
 //= require pixijs/pixi.min.js
@@ -58,7 +58,7 @@ config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
 //= require pixijs/main.js
 ```
 
-5. modify index.html.erb as following [example](https://github.com/MariMurotani/pixijs_starter_test/blob/master/app/views/pixijs/index.html.erb)
+#### 5. modify index.html.erb as following [example](https://github.com/MariMurotani/pixijs_starter_test/blob/master/app/views/pixijs/index.html.erb)
 ```html
 <script type="text/javascript">
 var myCanvasDrawer;
@@ -70,7 +70,7 @@ $(document).ready(function(){
 </script>
 ```
 
-6. add routing as following [example]
+#### 6. add routing as following [example]
 (https://github.com/MariMurotani/pixijs_starter_test/blob/master/config/routes.rb)
 
 ```ruby
@@ -81,23 +81,23 @@ Rails.application.routes.draw do
 end
 ```
 
-7. start rails server
+#### 7. start rails server
 ```ruby
-bundle exec rails server`
+bundle exec rails server
 ```
 
-8. access to index page
+#### 8. access to index page
 http://localhost:3000/pixijs/index
 
 ### 2. Customize in your app
-1. create scene on your project with generator
+#### 1. create scene on your project with generator
 ```ruby
 bundle exec rails generate pixijs_starter:add your_scene_name
 ```
 
 this command will create `scene_your_scene_name.js` into `pixijs/scenes`
 
-2. modify `pixijs/resources.js` to add preload resources as following [example](https://github.com/MariMurotani/pixijs_starter_test/blob/master/app/assets/javascripts/pixijs/resources.js)
+#### 2. modify `pixijs/resources.js` to add preload resources as following [example](https://github.com/MariMurotani/pixijs_starter_test/blob/master/app/assets/javascripts/pixijs/resources.js)
 
 ```javascript
 var PRELOAD_RESOUCES = {
@@ -106,7 +106,7 @@ var PRELOAD_RESOUCES = {
   ],
 ```
 
-3. modify scene which is created in step1
+#### 3. modify scene which is created in step1
 see original document provided by [pixijs](https://pixijs.github.io/docs/)
 
 ## Contributing
