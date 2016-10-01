@@ -52,6 +52,8 @@ config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
 ```ruby
 //= require pixijs/jquery-3.1.1.min.js
 //= require pixijs/pixi.min.js
+//= require pixijs/pixi-particles.js
+//= require pixijs/stats.js
 //= require pixijs/alias
 //= require pixijs/resources
 //= require pixijs/scene_base
@@ -61,6 +63,19 @@ config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
 
 #### 5. modify index.html.erb as following [example](https://github.com/MariMurotani/pixijs_starter_test/blob/master/app/views/pixijs/index.html.erb)
 ```html
+<style type="text/css">
+.parent{
+  position: relative;
+  height: 100%;
+  width: 600px;
+  margin-right: auto;margin-left:auto;
+  overflow: hidden;
+}
+div.overflow{
+  width: 500px;
+  height: 600px;
+}
+</style>
 <script type="text/javascript">
 var myCanvasDrawer;
 $(document).ready(function(){
@@ -69,12 +84,14 @@ $(document).ready(function(){
   myCanvasDrawer.switchStage("SceneMain","メインのシーン");
 });
 </script>
-<div id="stage1">
-  <div id="overlay1"></div>
+<div class="parent overflow" style="width:500px;">
+  <div>
+    <div id="stage1"></div>
+    <div id="stage2"></div>
+  </div>
+  </div>
 </div>
-<div id="stage2">
-  <div id="overlay2"></div>
-</div>
+
 ```
 
 #### 6. add routing as following [example](https://github.com/MariMurotani/pixijs_starter_test/blob/master/config/routes.rb)
