@@ -50,6 +50,7 @@ config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
 #### 4. modify require setting in `pixijs.js` as following  [example](https://github.com/MariMurotani/pixijs_starter_test/blob/master/app/assets/javascripts/pixijs.js).
 
 ```ruby
+//= require pixijs/jquery-3.1.1.min.js
 //= require pixijs/pixi.min.js
 //= require pixijs/alias
 //= require pixijs/resources
@@ -68,6 +69,12 @@ $(document).ready(function(){
   myCanvasDrawer.switchStage("SceneMain","メインのシーン");
 });
 </script>
+<div id="stage1">
+  <div id="overlay1"></div>
+</div>
+<div id="stage2">
+  <div id="overlay2"></div>
+</div>
 ```
 
 #### 6. add routing as following [example](https://github.com/MariMurotani/pixijs_starter_test/blob/master/config/routes.rb)
