@@ -35,11 +35,11 @@ var SceneBase = (function (_super) {
     };
     //  this function is called when scene stats , is called as call back of resource load
     SceneBase.prototype.start = function () {
-      //this.ticker = PIXI.ticker.shared.add( myCanvasDrawer.currentStage.update, this );
+      this.ticker = PIXI.ticker.shared.add( myCanvasDrawer.currentStage.update, this );
     };
     SceneBase.prototype.destroy = function () {
-      //this.ticker.stop();
-      //this.ticker = PIXI.ticker.shared.remove( myCanvasDrawer.currentStage.update, this );
+      this.ticker.stop();
+      this.ticker = PIXI.ticker.shared.remove( myCanvasDrawer.currentStage.update, this );
     };
     SceneBase.prototype.update = function () {
     };

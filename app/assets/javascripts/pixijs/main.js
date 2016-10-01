@@ -10,6 +10,7 @@
             this.windowHeight = windowHeight;
             this.initialized = false;
             this.animateSwitch = false;
+            this.stage_index = 1;
         };
 
         CanvasDrawer.prototype.initialize = function(params) {
@@ -70,7 +71,7 @@
     CanvasDrawer.prototype.afterLoading = function(loader, resource){
         myCanvasDrawer.initialized = true;
         if(myCanvasDrawer.backgroundColor != null){
-            myCanvasDrawer.renderer1.backgroundColor = 0x000000
+            myCanvasDrawer.renderer1.backgroundColor = (this.initialized == false)?0x000000:myCanvasDrawer.backgroundColor;
             myCanvasDrawer.renderer2.backgroundColor = myCanvasDrawer.backgroundColor;
         }
         myCanvasDrawer.currentStage.start();
@@ -117,47 +118,38 @@
         }
         return scenes;
     };
-    var c = 0;
-    CanvasDrawer.prototype.render = function(){
-        console.log(myCanvasDrawer.stage_index);
 
+    CanvasDrawer.prototype.render = function(){
         if(myCanvasDrawer.animateSwitch){
-            if(c == 0) {
-                myCanvasDrawer.renderer2.render(myCanvasDrawer.currentStage);
-                $(this.stage_prefix + "1").animate({
-                    left: -this.windowWidth,
-                    opacity: 0.2
-                }, 1000, function () {
-                    $(this).css({left: myCanvasDrawer.windowWidth});
-                });
-                $(this.stage_prefix + "2").css({opacity: 0});
-                $(this.stage_prefix + "2").animate({
-                    left: 0,
-                    opacity: 1
-                }, 1000, function () {
-                    $(this.stage_prefix + "2").css({opacity: 0});
-                });
-                myCanvasDrawer.stage_index = 2;
-                myCanvasDrawer.animateSwitch = false;
-                c++;
-            }else{
-                myCanvasDrawer.renderer1.render(myCanvasDrawer.currentStage);
-                $(this.stage_prefix + "2").animate({
-                    left: -this.windowWidth,
-                    opacity: 0.2
-                }, 1000, function () {
-                    $(this).css({left: myCanvasDrawer.windowWidth});
-                });
-                $(this.stage_prefix + "1").animate({
-                    left: 0,
-                    opacity: 1
-                }, 1000, function () {
-                    $(this.stage_prefix + "1").css({opacity: 0});
-                });
-                myCanvasDrawer.stage_index = 1;
-                c=0;
-            }
+            renderNo = (myCanvasDrawer.stage_index == 1) ? 2 : 1;
+            hideNo = (myCanvasDrawer.stage_index == 1) ? 1 : 2;
+            showNo = (myCanvasDrawer.stage_index == 1) ? 2 : 1;
+            eval("myCanvasDrawer.renderer" + renderNo + ".render(myCanvasDrawer.currentStage);");
+            $(this.stage_prefix + hideNo).animate({
+                left: -this.windowWidth,
+                opacity: 0.2
+            }, 1000, function () {
+                $(this).css({left: myCanvasDrawer.windowWidth});
+            });
+            $(this.stage_prefix + showNo).css({opacity: 0});
+            $(this.stage_prefix + showNo).animate({
+                left: 0,
+                opacity: 1
+            }, 1000, function () {
+                $(this.stage_prefix + showNo).css({opacity: 0});
+            });
+
+            myCanvasDrawer.stage_index = (myCanvasDrawer.stage_index == 1) ? 2 : 1;
+            myCanvasDrawer.animateSwitch = false;
+        }else {
+            CanvasDrawer.prototype.getCurrentRenderer().render(myCanvasDrawer.currentStage);
         }
+    };
+
+    CanvasDrawer.prototype.getCurrentRenderer = function(){
+        renderNo = (myCanvasDrawer.stage_index == 1) ? 1 : 2;
+        eval("renderer = myCanvasDrawer.renderer" + renderNo +";");
+        return renderer;
     };
 
 })((this || 0).self || global);
