@@ -6,10 +6,10 @@ This is javascript framework to start pixijs quickly.
 2. scene changer is supported
 
 ## Installation
-Download or clone this repository and add this line to your application's Gemfile:
+Add location of this repository to your application's Gemfile:
 
 ```ruby
-gem 'pixijs_starter' path: '$downloaded_path/pixijs_starter'`
+gem 'pixijs_starter', :git => 'git://github.com/MariMurotani/pixijs_starter',:branch => "master"
 ```
 
 And then execute:
@@ -50,15 +50,15 @@ config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
 #### 4. modify require setting in `pixijs.js` as following  [example](https://github.com/MariMurotani/pixijs_starter_test/blob/master/app/assets/javascripts/pixijs.js).
 
 ```ruby
-//= require pixijs/jquery-3.1.1.min.js
-//= require pixijs/pixi.min.js
-//= require pixijs/pixi-particles.js
-//= require pixijs/stats.js
+//= require pixijs/jquery-3.1.1.min
+//= require pixijs/pixi.min
+//= require pixijs/pixi-particles
+//= require pixijs/stats
 //= require pixijs/alias
 //= require pixijs/resources
 //= require pixijs/scene_base
 //= require_tree ./pixijs
-//= require pixijs/main.js
+//= require pixijs/main
 ```
 
 #### 5. modify index.html.erb as following [example](https://github.com/MariMurotani/pixijs_starter_test/blob/master/app/views/pixijs/index.html.erb)
