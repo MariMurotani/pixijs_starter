@@ -44,5 +44,8 @@ var SceneBase = (function (_super) {
     };
     SceneBase.prototype.update = function () {
     };
+    SceneBase.prototype.render = function () {
+        myCanvasDrawer.render();
+    };
     return SceneBase;
 })(Container);
