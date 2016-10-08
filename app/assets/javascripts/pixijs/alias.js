@@ -9,22 +9,33 @@ var Container = PIXI.Container,
 
 //  constructor caller
 var __extends = this.__extends || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    __.prototype = b.prototype;
-    d.prototype = new __();
-};
+        for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+        function __() {
+            this.constructor = d;
+        }
 
-var __style = {fontFamily: 'Arial',fontSize: '30pt',fontWeight: 'bold', dropShadowColor: '#000000', fill:'white'}
+        __.prototype = b.prototype;
+        d.prototype = new __();
+    };
+
+var __style = {fontFamily: 'Arial', fontSize: '30pt', fontWeight: 'bold', dropShadowColor: '#000000', fill: 'white'}
 
 //  set position x of target object to center of window
-function __setCenterX(target){
-  target.position.x = myCanvasDrawer.windowWidth / 2 - target.width/2;
-  return target;
+function __setCenterX(target) {
+    target.position.x = __getCenterX(target);
+    return target;
+}
+
+function __getCenterX(target) {
+    return myCanvasDrawer.windowWidth / 2 - target.width / 2;
 }
 
 //  set position y target object to center of window
-function __setCenterY(target){
-  target.position.y = myCanvasDrawer.windowHeight / 2 - target.height/2;
-  return target;
+function __setCenterY(target) {
+    target.position.y = __getCenterY(target);
+    return target;
+}
+
+function __getCenterY(target) {
+    return myCanvasDrawer.windowHeight / 2 - target.height / 2;
 }

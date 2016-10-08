@@ -1,24 +1,24 @@
-(function(global) {
+(function (global) {
     "use strict;"
-    CanvasDrawer = function(x,y,windowWidth,windowHeight,backgroundColor) {
-            this.backgroundColor = backgroundColor;
-            this.previousStage;
-            this.currentStage;
-            this.stage_prefix = "#stage";
-            this.overlay_prefix = "#overlay";
-            this.windowWidth = windowWidth;
-            this.windowHeight = windowHeight;
-            this.initialized = false;
-            this.animateSwitch = false;
-            this.stage_index = 1;
-        };
+    CanvasDrawer = function (x, y, windowWidth, windowHeight, backgroundColor) {
+        this.backgroundColor = backgroundColor;
+        this.previousStage;
+        this.currentStage;
+        this.stage_prefix = "#stage";
+        this.overlay_prefix = "#overlay";
+        this.windowWidth = windowWidth;
+        this.windowHeight = windowHeight;
+        this.initialized = false;
+        this.animateSwitch = false;
+        this.stage_index = 1;
+    };
 
-        CanvasDrawer.prototype.initialize = function(params) {
+    CanvasDrawer.prototype.initialize = function (params) {
         params = params || {                        //Options
-            antialiasing: false,
-            transparent: false,
-            resolution: 1
-        };
+                antialiasing: false,
+                transparent: false,
+                resolution: 1
+            };
 
         this.renderer1 = PIXI.autoDetectRenderer(
             this.windowWidth,                     //Width
@@ -33,25 +33,25 @@
             false                    //Optionally force canvas rendering
         );
 
-        var rend1 = $(this.stage_prefix+"1");
+        var rend1 = $(this.stage_prefix + "1");
         rend1.css({
             "position": "absolute",
-            "top":0,
+            "top": 0,
             "left": 0
         });
-        var rend2 = $(this.stage_prefix+"2");
+        var rend2 = $(this.stage_prefix + "2");
         rend2.css({
             "position": "absolute",
-            "top":0,
+            "top": 0,
             "left": this.windowWidth
         });
 
-        $(this.stage_prefix+"1").append(this.renderer1.view);
-        $(this.stage_prefix+"2").append(this.renderer2.view);
+        $(this.stage_prefix + "1").append(this.renderer1.view);
+        $(this.stage_prefix + "2").append(this.renderer2.view);
 
     };
 
-    CanvasDrawer.prototype.resourceLoad = function(){
+    CanvasDrawer.prototype.resourceLoad = function () {
         var allResouces = [];
         for (key in PRELOAD_RESOUCES) {
             Array.prototype.push.apply(allResouces, PRELOAD_RESOUCES[key]);
@@ -64,40 +64,40 @@
 
     };
 
-    CanvasDrawer.prototype.loadProgressHandler = function(loader, resource){
-        CanvasDrawer.prototype.writeMessage("Loading " +　loader.progress + "%");
+    CanvasDrawer.prototype.loadProgressHandler = function (loader, resource) {
+        CanvasDrawer.prototype.writeMessage("Loading " + loader.progress + "%");
     };
 
-    CanvasDrawer.prototype.afterLoading = function(loader, resource){
+    CanvasDrawer.prototype.afterLoading = function (loader, resource) {
         myCanvasDrawer.initialized = true;
-        if(myCanvasDrawer.backgroundColor != null){
-            myCanvasDrawer.renderer1.backgroundColor = (this.initialized == false)?0x000000:myCanvasDrawer.backgroundColor;
+        if (myCanvasDrawer.backgroundColor != null) {
+            myCanvasDrawer.renderer1.backgroundColor = (this.initialized == false) ? 0x000000 : myCanvasDrawer.backgroundColor;
             myCanvasDrawer.renderer2.backgroundColor = myCanvasDrawer.backgroundColor;
         }
         myCanvasDrawer.currentStage.start();
     };
 
-    CanvasDrawer.prototype.switchStage = function(scene_name,scene_title) {
-        if(myCanvasDrawer.currentStage != null) {
+    CanvasDrawer.prototype.switchStage = function (scene_name, scene_title) {
+        if (myCanvasDrawer.currentStage != null) {
             myCanvasDrawer.currentStage.removeChildren();
             myCanvasDrawer.currentStage.destroy();
         }
         this.previousStage = myCanvasDrawer.currentStage;
-        this.animateSwitch  = true;
+        this.animateSwitch = true;
         cmd = "this.currentStage = new " + scene_name + "(scene_name,scene_title);";
         eval(cmd);
 
         /// load resouces, after complete resource loading,afterResourceLoading is called
-        if(this.initialized == false){
+        if (this.initialized == false) {
             this.resourceLoad();
-        }else{
+        } else {
             myCanvasDrawer.currentStage.start();
         }
     };
 
-    CanvasDrawer.prototype.writeMessage = function(word){
+    CanvasDrawer.prototype.writeMessage = function (word) {
         myCanvasDrawer.LoadingTxt = new PIXI.Text(word, __style);
-        myCanvasDrawer.LoadingTxt = __setCenterY(__setCenterX(myCanvasDrawer.LoadingTxt),myCanvasDrawer.LoadingTxt);
+        myCanvasDrawer.LoadingTxt = __setCenterY(__setCenterX(myCanvasDrawer.LoadingTxt), myCanvasDrawer.LoadingTxt);
         myCanvasDrawer.previousStage = new Container();
         myCanvasDrawer.previousStage.removeChildren();
         myCanvasDrawer.previousStage.addChild(myCanvasDrawer.LoadingTxt);
@@ -105,22 +105,22 @@
         return myCanvasDrawer.LoadingTxt;
     };
 
-    CanvasDrawer.prototype.getScenes = function(word){
+    CanvasDrawer.prototype.getScenes = function (word) {
         var scenes = new Array();
-        for( var prop in window ) {
-            if ( prop == null || prop.match("Scene[0-9a-zA-Z]{1}")) {
-                if(typeof window[ prop ] == "function"){
-                  if ((window.hasOwnProperty( 'name' ) == true) && (prop != "SceneBase")) {
-                    scenes.push(prop);
-                  }
+        for (var prop in window) {
+            if (prop == null || prop.match("Scene[0-9a-zA-Z]{1}")) {
+                if (typeof window[prop] == "function") {
+                    if ((window.hasOwnProperty('name') == true) && (prop != "SceneBase")) {
+                        scenes.push(prop);
+                    }
                 }
             }
         }
         return scenes;
     };
 
-    CanvasDrawer.prototype.render = function(){
-        if(myCanvasDrawer.animateSwitch){
+    CanvasDrawer.prototype.render = function () {
+        if (myCanvasDrawer.animateSwitch) {
             renderNo = (myCanvasDrawer.stage_index == 1) ? 2 : 1;
             hideNo = (myCanvasDrawer.stage_index == 1) ? 1 : 2;
             showNo = (myCanvasDrawer.stage_index == 1) ? 2 : 1;
@@ -141,14 +141,14 @@
 
             myCanvasDrawer.stage_index = (myCanvasDrawer.stage_index == 1) ? 2 : 1;
             myCanvasDrawer.animateSwitch = false;
-        }else {
+        } else {
             CanvasDrawer.prototype.getCurrentRenderer().render(myCanvasDrawer.currentStage);
         }
     };
 
-    CanvasDrawer.prototype.getCurrentRenderer = function(){
+    CanvasDrawer.prototype.getCurrentRenderer = function () {
         renderNo = (myCanvasDrawer.stage_index == 1) ? 1 : 2;
-        eval("renderer = myCanvasDrawer.renderer" + renderNo +";");
+        eval("renderer = myCanvasDrawer.renderer" + renderNo + ";");
         return renderer;
     };
 
