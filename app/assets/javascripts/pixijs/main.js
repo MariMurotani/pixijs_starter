@@ -11,6 +11,7 @@
         this.initialized = false;
         this.animateSwitch = false;
         this.stage_index = 1;
+        this.dom_stage_index = 1;
     };
 
     CanvasDrawer.prototype.initialize = function (params) {
@@ -48,6 +49,19 @@
 
         $(this.stage_prefix + "1").append(this.renderer1.view);
         $(this.stage_prefix + "2").append(this.renderer2.view);
+
+        var cssoverlay = {
+            'position': 'absolute',
+            'top': '0px',
+            'left': '0px',
+            'width': this.windowWidth + "px",
+            'height': this.windowHeight + 'px',
+            'pointer-events': 'none'
+        };
+        var overlay1 = $("<div>").attr("id","overlay1").css(cssoverlay);
+        var overlay2 = $("<div>").attr("id","overlay2").css(cssoverlay);
+        $("#stage1").append(overlay1);
+        $("#stage2").append(overlay2);
 
     };
 
@@ -140,6 +154,7 @@
             });
 
             myCanvasDrawer.stage_index = (myCanvasDrawer.stage_index == 1) ? 2 : 1;
+            myCanvasDrawer.dom_stage_index = (myCanvasDrawer.stage_index == 1) ? 2: 1;
             myCanvasDrawer.animateSwitch = false;
         } else {
             CanvasDrawer.prototype.getCurrentRenderer().render(myCanvasDrawer.currentStage);

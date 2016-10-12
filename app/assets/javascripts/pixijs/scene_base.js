@@ -43,9 +43,17 @@ var SceneBase = (function (_super) {
         this.ticker = PIXI.ticker.shared.remove(myCanvasDrawer.currentStage.update, myCanvasDrawer.currentStage);
     };
     SceneBase.prototype.update = function () {
+        
     };
     SceneBase.prototype.render = function () {
         myCanvasDrawer.render();
     };
+    SceneBase.prototype.getStageDom = function () {
+        return $(myCanvasDrawer.overlay_prefix + myCanvasDrawer.dom_stage_index);
+    };
+    SceneBase.prototype.appenedStageDom = function (target) {
+        this.getStageDom().append(target);
+    };
+
     return SceneBase;
 })(Container);
