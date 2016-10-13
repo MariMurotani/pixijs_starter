@@ -71,6 +71,21 @@
             Array.prototype.push.apply(allResouces, PRELOAD_RESOUCES[key]);
         }
         this.writeMessage("Start Loading");
+
+        this.html_resource_load_counter = PRELOAD_HTML.length;
+        for (k in PRELOAD_HTML) {
+            var path = PRELOAD_HTML[k];
+            $.ajax({
+                type: 'GET',
+                url: path,
+                dataType: 'html',
+                success: function (data) {
+                    resources[path] = data;
+                    CanvasDrawer.html_resource_load_counter --;
+                }
+            });
+        }
+
         loader
             .add(allResouces)
             .on("progress", this.loadProgressHandler)
@@ -93,13 +108,14 @@
 
     CanvasDrawer.prototype.switchStage = function (scene_name, scene_title) {
         if (myCanvasDrawer.currentStage != null) {
-            myCanvasDrawer.currentStage.removeChildren();
             myCanvasDrawer.currentStage.destroy();
+            myCanvasDrawer.currentStage.removeChildren();
         }
         this.previousStage = myCanvasDrawer.currentStage;
         this.animateSwitch = true;
         cmd = "this.currentStage = new " + scene_name + "(scene_name,scene_title);";
         eval(cmd);
+        myCanvasDrawer.dom_stage_index = (myCanvasDrawer.stage_index == 1) ? 2: 1;
 
         /// load resouces, after complete resource loading,afterResourceLoading is called
         if (this.initialized == false) {
@@ -151,10 +167,8 @@
                 opacity: 1
             }, 1000, function () {
                 $(this.stage_prefix + showNo).css({opacity: 0});
+                myCanvasDrawer.stage_index = (myCanvasDrawer.stage_index == 1) ? 2 : 1;
             });
-
-            myCanvasDrawer.stage_index = (myCanvasDrawer.stage_index == 1) ? 2 : 1;
-            myCanvasDrawer.dom_stage_index = (myCanvasDrawer.stage_index == 1) ? 2: 1;
             myCanvasDrawer.animateSwitch = false;
         } else {
             CanvasDrawer.prototype.getCurrentRenderer().render(myCanvasDrawer.currentStage);

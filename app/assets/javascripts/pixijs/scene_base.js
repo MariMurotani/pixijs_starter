@@ -54,6 +54,9 @@ var SceneBase = (function (_super) {
     SceneBase.prototype.appenedStageDom = function (target) {
         this.getStageDom().append(target);
     };
+    SceneBase.prototype.emptyStageDom = function () {
+        this.getStageDom().empty();
+    };
 
     return SceneBase;
 })(Container);
